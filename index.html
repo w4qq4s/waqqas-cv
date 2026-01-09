@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waqqas Hejazi - Cybersecurity Enthusiast</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e27;
+            color: #e4e4e7;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Subtle background grid */
+        .bg-grid {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Gradient overlay */
+        .bg-gradient {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: color 0.3s;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-links a:hover {
+            color: #6366f1;
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 40px 80px;
+        }
+
+        /* Hero section */
+        .hero {
+            padding: 100px 0;
+            max-width: 900px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 6px;
+            color: #a5b4fc;
+            font-size: 0.85em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 4.5em;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            font-size: 1.4em;
+            color: #a1a1aa;
+            margin-bottom: 40px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary {
+            background: #6366f1;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #e4e4e7;
+            border: 1px solid rgba(228, 228, 231, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(228, 228, 231, 0.05);
+            border-color: rgba(228, 228, 231, 0.4);
+        }
+
+        /* Section */
+        section {
+            margin: 120px 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            color: #6366f1;
+            font-size: 0.9em;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 2.8em;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            font-size: 1.15em;
+            color: #a1a1aa;
+            max-width: 700px;
+            line-height: 1.7;
+        }
+
+        /* Glass card - refined */
+        .glass-card {
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Skills grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .skill-card {
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .skill-card h3 {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+
+        .skill-card li {
+            padding: 12px 0;
+            color: #a1a1aa;
+            font-size: 0.95em;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.05);
+            transition: color 0.2s;
+        }
+
+        .skill-card li:last-child {
+            border-bottom: none;
+        }
+
+        .skill-card li:hover {
+            color: #e4e4e7;
+        }
+
+        /* Achievement grid */
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .achievement-card {
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            padding: 32px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #6366f1, #a855f7);
+        }
+
+        .achievement-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .achievement-rank {
+            font-size: 2em;
+            font-weight: 800;
+            color: #6366f1;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .achievement-card h3 {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .achievement-card p {
+            color: #a1a1aa;
+            font-size: 0.9em;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #6366f1, transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -57px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background: #6366f1;
+            border-radius: 50%;
+            border: 3px solid #0a0e27;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .timeline-item h3 {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .timeline-item .timeline-meta {
+            color: #6366f1;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .timeline-item p {
+            color: #a1a1aa;
+            line-height: 1.7;
+        }
+
+        /* Goals list */
+        .goals-list {
+            margin-top: 40px;
+        }
+
+        .goal-item {
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-left: 4px solid #6366f1;
+            border-radius: 8px;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+            color: #e4e4e7;
+            font-size: 1.05em;
+            transition: all 0.3s;
+        }
+
+        .goal-item:hover {
+            background: rgba(17, 24, 39, 0.7);
+            border-left-color: #a855f7;
+            transform: translateX(8px);
+        }
+
+        /* Languages */
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .language-item {
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .language-item:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .language-name {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.1em;
+            margin-bottom: 6px;
+        }
+
+        .language-level {
+            color: #a1a1aa;
+            font-size: 0.85em;
+        }
+
+        /* Contact section */
+        .contact-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .contact-link {
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 8px;
+            padding: 24px;
+            text-decoration: none;
+            color: #e4e4e7;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .contact-link:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-4px);
+            background: rgba(17, 24, 39, 0.7);
+        }
+
+        .contact-label {
+            font-size: 0.85em;
+            color: #6366f1;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-value {
+            font-size: 1.05em;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            padding: 50px 0;
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            margin: 60px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #6366f1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #a1a1aa;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8em; }
+            .hero .subtitle { font-size: 1.1em; }
+            h2 { font-size: 2em; }
+            .container { padding: 100px 20px 60px; }
+            .nav-container { padding: 20px; }
+            .nav-links { gap: 20px; }
+            .cta-group { flex-direction: column; }
+            .timeline { padding-left: 30px; }
+            .timeline-item::before { left: -37px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">WH</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#achievements">Achievements</a>
+                <a href="#education">Education</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <div class="hero-label">Cybersecurity Enthusiast</div>
+            <h1>Waqqas Hejazi</h1>
+            <p class="subtitle">CTF competitor and security researcher specializing in web exploitation, Active Directory pentesting, and digital forensics. Team leader with proven track record in competitive cybersecurity challenges.</p>
+            <div class="cta-group">
+                <a href="mailto:waqqass3c@gmail.com" class="btn btn-primary">Get in Touch</a>
+                <a href="https://github.com/w4qq4s" target="_blank" class="btn btn-secondary">View GitHub</a>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value">Rank 4</div>
+                <div class="stat-label">Best CTF Placement</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">Elite</div>
+                <div class="stat-label">Hack The Box Status</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">159 WPM</div>
+                <div class="stat-label">Peak Typing Speed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">Oct 2024</div>
+                <div class="stat-label">CTF Career Start</div>
+            </div>
+        </div>
+
+        <section id="about">
+            <div class="section-header">
+                <div class="section-label">Overview</div>
+                <h2>About</h2>
+                <p class="section-description">Based in Mangaluru, India, I focus on competitive CTF challenges and security research. My expertise spans web application security, enterprise Active Directory environments, digital forensics, and reverse engineering. I lead an active CTF team and continuously develop tools and solutions for the cybersecurity community.</p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="section-header">
+                <div class="section-label">Expertise</div>
+                <h2>Technical Skills</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Core Security Domains</h3>
+                    <ul>
+                        <li>Web Application Security (LFI, RCE, SQLi, SSTI)</li>
+                        <li>Authentication Bypass & Service Misconfiguration</li>
+                        <li>Active Directory & Enterprise Security</li>
+                        <li>Kerberos, AD CS, BloodHound, GPO Abuse</li>
+                        <li>Digital Forensics & Incident Response</li>
+                        <li>Cryptography & Applied Cryptanalysis</li>
+                        <li>Reverse Engineering (Static & Dynamic)</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Analysis & CTF Tools</h3>
+                    <ul>
+                        <li>CyberChef, Wireshark</li>
+                        <li>Autopsy, Volatility</li>
+                        <li>Radare2, Ghidra</li>
+                        <li>BloodHound, Impacket Suite</li>
+                        <li>Custom Tooling Development</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Penetration Testing</h3>
+                    <ul>
+                        <li>Burp Suite Professional</li>
+                        <li>Nmap, Gobuster, FFUF</li>
+                        <li>Metasploit Framework</li>
+                        <li>Exploit Development</li>
+                        <li>Network Enumeration</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="achievements">
+            <div class="section-header">
+                <div class="section-label">Recognition</div>
+                <h2>Competitive Achievements</h2>
+                <p class="section-description">Track record of strong placements in national and international CTF competitions since October 2024.</p>
+            </div>
+            <div class="achievement-grid">
+                <div class="achievement-card">
+                    <div class="achievement-rank">Rank 4</div>
+                    <h3>IIT Bhubaneswar CTF</h3>
+                    <p>Best overall team placement to date</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-rank">Rank 11</div>
+                    <h3>FooBar CTF 2025</h3>
+                    <p>NIT Durgapur · 64 competing teams</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-rank">Rank 24</div>
+                    <h3>Pragyan CTF 2025</h3>
+                    <p>NIT Trichy · 440+ competing teams</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-rank">Rank 58</div>
+                    <h3>Hack The Box Season 9</h3>
+                    <p>Global ranking among 9,500+ players</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-rank">Elite</div>
+                    <h3>Hack The Box Status</h3>
+                    <p>Top tier ranking achieved</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-rank">2024</div>
+                    <h3>Competitive CTF Start</h3>
+                    <p>Rapid progression since October</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <div class="section-header">
+                <div class="section-label">Background</div>
+                <h2>Education & Career Goals</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>St Aloysius (Deemed To Be University)</h3>
+                    <div class="timeline-meta">2025 – 2029</div>
+                    <p>Currently pursuing degree with focus on cybersecurity and information security.</p>
+                </div>
+            </div>
+            <div class="goals-list">
+                <div class="goal-item">
+                    Develop comprehensive penetration testing and network security expertise through hands-on practice and continued competitive participation
+                </div>
+                <div class="goal-item">
+                    Pursue long-term career in cybersecurity and vulnerability research, contributing to enterprise security and open-source security tools
+                </div>
+            </div>
+        </section>
+
+        <section id="languages">
+            <div class="section-header">
+                <div class="section-label">Communication</div>
+                <h2>Languages</h2>
+            </div>
+            <div class="language-grid">
+                <div class="language-item">
+                    <div class="language-name">English</div>
+                    <div class="language-level">Fluent</div>
+                </div>
+                <div class="language-item">
+                    <div class="language-name">Hindi</div>
+                    <div class="language-level">Native</div>
+                </div>
+                <div class="language-item">
+                    <div class="language-name">Urdu</div>
+                    <div class="language-level">Native</div>
+                </div>
+                <div class="language-item">
+                    <div class="language-name">Telugu</div>
+                    <div class="language-level">Basic</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-header">
+                <div class="section-label">Connect</div>
+                <h2>Get in Touch</h2>
+                <p class="section-description">Open to collaboration, research opportunities, and professional networking.</p>
+            </div>
+            <div class="contact-links">
+                <a href="mailto:waqqass3c@gmail.com" class="contact-link">
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">waqqass3c@gmail.com</div>
+                </a>
+                <a href="tel:+91-123456789" class="contact-link">
+                    <div class="contact-label">Phone</div>
+                    <div class="contact-value">+91-123456789</div>
+                </a>
+                <a href="https://github.com/w4qq4s" target="_blank" class="contact-link">
+                    <div class="contact-label">GitHub</div>
+                    <div class="contact-value">github.com/w4qq4s</div>
+                </a>
+                <a href="https://linkedin.com/in/waqqas-hejazi-937a91382" target="_blank" class="contact-link">
+                    <div class="contact-label">LinkedIn</div>
+                    <div class="contact-value">Waqqas Hejazi</div>
+                </a>
+                    <a href="https://app.hackthebox.com/users/2111851" target="_blank" class="contact-link">
+                    <div class="contact-label">HackTheBox</div>
+                    <div class="contact-value">xtasyyy #IN</div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
