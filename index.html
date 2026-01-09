@@ -530,6 +530,109 @@
             .timeline { padding-left: 30px; }
             .timeline-item::before { left: -37px; }
         }
+        /* ---------- Publications (add to existing <style>) ---------- */
+.publications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.publication-card {
+    background: rgba(17, 24, 39, 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    border-radius: 12px;
+    padding: 22px;
+    transition: all 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 160px;
+}
+
+.publication-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(99, 102, 241, 0.28);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+}
+
+.publication-title {
+    font-size: 1.15em;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.3px;
+}
+
+.publication-excerpt {
+    color: #a1a1aa;
+    font-size: 0.95em;
+    line-height: 1.5;
+    flex: 1;
+}
+
+.publication-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.pub-date {
+    color: #6366f1;
+    font-weight: 700;
+    font-size: 0.9em;
+}
+
+.pub-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pub-tag {
+    background: rgba(99,102,241,0.08);
+    color: #a5b4fc;
+    font-weight: 600;
+    padding: 6px 10px;
+    font-size: 0.8em;
+    border-radius: 999px;
+    border: 1px solid rgba(99,102,241,0.12);
+}
+
+/* small action button in card */
+.pub-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.pub-link {
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9em;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: #e4e4e7;
+    border: 1px solid rgba(228,228,231,0.12);
+    transition: all 0.25s;
+}
+
+.pub-link:hover {
+    background: rgba(228,228,231,0.04);
+    transform: translateY(-2px);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .publication-title { font-size: 1.05em; }
+    .publication-excerpt { font-size: 0.95em; }
+}
+
     </style>
 </head>
 <body>
@@ -543,6 +646,7 @@
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
                 <a href="#achievements">Achievements</a>
+                <a href="#publications">Publications</a> <!-- new -->
                 <a href="#education">Education</a>
                 <a href="#contact">Contact</a>
             </div>
@@ -667,6 +771,136 @@
                 </div>
             </div>
         </section>
+   <section id="publications">
+    <div class="section-header">
+        <div class="section-label">Writeups</div>
+        <h2>Publications & CTF Writeups</h2>
+        <p class="section-description">Selected writeups and technical posts where I break down CTF challenges, methodologies, and mitigations.</p>
+    </div>
+
+    <div class="publications-grid">
+        <article class="publication-card glass-card">
+            <div class="publication-title">RSTCON 2024 — Escalator</div>
+            <div class="publication-excerpt">Privilege escalation writeup: found SUID binaries on the host and abused `/usr/bin/find` with `-exec` to spawn a root shell and read `/flag.txt`.</div>
+            <div class="publication-meta">
+                <div class="pub-date">2024</div>
+                <div class="pub-tags">
+                    <span class="pub-tag">Privilege Escalation</span>
+                    <span class="pub-tag">Linux</span>
+                </div>
+            </div>
+            <div class="pub-actions">
+                <a href="https://hackmd.io/@xtasyyy/BklMplYZWg" target="_blank" class="pub-link">Read writeup</a>
+            </div>
+        </article>
+
+        <article class="publication-card glass-card">
+            <div class="publication-title">Pearl CTF 2025 — oxmagic</div>
+            <div class="publication-excerpt">Stego + media repair: extracted a Base64 string from image metadata, used it as a steghide passphrase, repaired a damaged WAV header, decoded Morse audio to recover the flag.</div>
+            <div class="publication-meta">
+                <div class="pub-date">2025</div>
+                <div class="pub-tags">
+                    <span class="pub-tag">Steganography</span>
+                    <span class="pub-tag">Forensics</span>
+                </div>
+            </div>
+            <div class="pub-actions">
+                <a href="https://hackmd.io/@xtasyyy/BJZWEpqiJl" target="_blank" class="pub-link">Read writeup</a>
+            </div>
+        </article>
+
+        <article class="publication-card glass-card">
+            <div class="publication-title">ACECTF 2025 — Insanity Check</div>
+            <div class="publication-excerpt">Logic & OSINT: used Discord role metadata and the Discord API to locate a PasteBin entry that contained the flag — a practical example of following breadcrumbs across services.</div>
+            <div class="publication-meta">
+                <div class="pub-date">2025</div>
+                <div class="pub-tags">
+                    <span class="pub-tag">OSINT</span>
+                    <span class="pub-tag">API</span>
+                </div>
+            </div>
+            <div class="pub-actions">
+                <a href="https://hackmd.io/@xtasyyy/S1MkcJ7iyg" target="_blank" class="pub-link">Read writeup</a>
+            </div>
+        </article>
+
+        <article class="publication-card glass-card">
+            <div class="publication-title">PatriotCTF 2024 — Really Only Echo</div>
+            <div class="publication-excerpt">Constrained shell challenge: leveraged `/bin/base64` inside an echo-only terminal to retrieve a base64-encoded flag and decode it to recover the final flag string.</div>
+            <div class="publication-meta">
+                <div class="pub-date">2024</div>
+                <div class="pub-tags">
+                    <span class="pub-tag">Pwn/Chal</span>
+                    <span class="pub-tag">Linux</span>
+                </div>
+            </div>
+            <div class="pub-actions">
+                <a href="https://hackmd.io/@xtasyyy/HJyMFMWRA" target="_blank" class="pub-link">Read writeup</a>
+            </div>
+        </article>
+
+        <article class="publication-card glass-card">
+            <div class="publication-title">PatriotCTF 2024 — Give me four words, Vasily</div>
+            <div class="publication-excerpt">Image analysis + geolocation: matched a satellite image online, extracted class name and coordinates, then used what3words to produce the three-word location included in the flag.</div>
+            <div class="publication-meta">
+                <div class="pub-date">2024</div>
+                <div class="pub-tags">
+                    <span class="pub-tag">OSINT</span>
+                    <span class="pub-tag">Geolocation</span>
+                </div>
+            </div>
+            <div class="pub-actions">
+                <a href="https://hackmd.io/@xtasyyy/HysfcfbAC" target="_blank" class="pub-link">Read writeup</a>
+            </div>
+        </article>
+
+        <article class="publication-card glass-card">
+            <div class="publication-title">H7CTF International — No Paste</div>
+            <div class="publication-excerpt">Client-side bypass: deobfuscated page JS, discovered a hardcoded submission value that was blocked by paste/input handlers, then set the field and triggered the submit function to retrieve the flag.</div>
+            <div class="publication-meta">
+                <div class="pub-date">2024</div>
+                <div class="pub-tags">
+                    <span class="pub-tag">Web</span>
+                    <span class="pub-tag">Client-side Exp</span>
+                </div>
+            </div>
+            <div class="pub-actions">
+                <a href="https://hackmd.io/@xtasyyy/B1UxS2wR0" target="_blank" class="pub-link">Read writeup</a>
+            </div>
+        </article>
+
+        <article class="publication-card glass-card">
+            <div class="publication-title">IRON CTF 2024 — b64SiteViewer</div>
+            <div class="publication-excerpt">App logic & host checks: audited a Flask app that intended to restrict `/admin` to localhost; bypassed the naive IP check using `127.1` to execute commands and reveal environment variables containing the flag.</div>
+            <div class="publication-meta">
+                <div class="pub-date">2024</div>
+                <div class="pub-tags">
+                    <span class="pub-tag">Web</span>
+                    <span class="pub-tag">RCE</span>
+                </div>
+            </div>
+            <div class="pub-actions">
+                <a href="https://hackmd.io/@xtasyyy/ryYYQSg1kl" target="_blank" class="pub-link">Read writeup</a>
+            </div>
+        </article>
+
+        <article class="publication-card glass-card">
+            <div class="publication-title">HackMD profile — Collection of notes</div>
+            <div class="publication-excerpt">A hub for all my CTF writeups and technical notes — visit the profile to browse the full set of posts and linked repositories.</div>
+            <div class="publication-meta">
+                <div class="pub-date">—</div>
+                <div class="pub-tags">
+                    <span class="pub-tag">Index</span>
+                    <span class="pub-tag">Writeups</span>
+                </div>
+            </div>
+            <div class="pub-actions">
+                <a href="https://hackmd.io/@xtasyyy" target="_blank" class="pub-link">View profile</a>
+            </div>
+        </article>
+    </div>
+</section>
+
 
         <section id="education">
             <div class="section-header">
