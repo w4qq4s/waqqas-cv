@@ -13,48 +13,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-        /* Hide default cursor */
-* {
-    cursor: none !important;
-}
-
-/* Custom cursor */
-.custom-cursor {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #000;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transition: all 0.1s ease;
-    mix-blend-mode: difference;
-    transform: translate(-50%, -50%);
-}
-
-.custom-cursor-dot {
-    position: fixed;
-    width: 6px;
-    height: 6px;
-    background: #000;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transition: all 0.05s ease;
-    transform: translate(-50%, -50%);
-}
-
-/* Cursor hover effects */
-.custom-cursor.hover {
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.05);
-}
-
-.custom-cursor-dot.hover {
-    width: 8px;
-    height: 8px;
-}
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -1021,6 +979,77 @@ footer {
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 0, 0, 0.3);
         }
+/* Hide default cursor */
+* {
+    cursor: none !important;
+}
+
+/* Clean crosshair cursor */
+.custom-cursor {
+    position: fixed;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    opacity: 0.7;
+}
+
+/* Round blur background */
+.custom-cursor::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, transparent 70%);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Vertical line */
+.custom-cursor::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Horizontal line - using a separate element */
+.cursor-horizontal {
+    position: fixed;
+    width: 24px;
+    height: 2px;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    background: #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Hover effects */
+.custom-cursor.hover::before {
+    width: 50px;
+    height: 50px;
+    backdrop-filter: blur(12px);
+}
+
+.custom-cursor.hover {
+    opacity: 0.9;
+    width: 32px;
+    height: 32px;
+}
+
+.cursor-horizontal.hover {
+    width: 32px;
+}
     </style>
 </head>
 <body>
@@ -1354,7 +1383,7 @@ footer {
                 </a>
                 <a href="https://github.com/w4qq4s" target="_blank" class="contact-link">
                     <div class="contact-label">GitHub</div>
-                    <div class="contact-value">github.com/w4qq4s</div>
+                    <div class="contact-value">w4qq4s</div>
                 </a>
                 <a href="https://linkedin.com/in/waqqas-hejazi-937a91382" target="_blank" class="contact-link">
                     <div class="contact-label">LinkedIn</div>
@@ -1422,60 +1451,34 @@ footer {
                 ticking = true;
             }
         });
-        // Custom cursor with trail
+ // Custom crosshair cursor
 const cursor = document.createElement('div');
 cursor.classList.add('custom-cursor');
 document.body.appendChild(cursor);
 
-const cursorDot = document.createElement('div');
-cursorDot.classList.add('custom-cursor-dot');
-document.body.appendChild(cursorDot);
-
-let mouseX = 0;
-let mouseY = 0;
-let cursorX = 0;
-let cursorY = 0;
-let dotX = 0;
-let dotY = 0;
+const cursorHorizontal = document.createElement('div');
+cursorHorizontal.classList.add('cursor-horizontal');
+document.body.appendChild(cursorHorizontal);
 
 document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    
-    // Instant dot follow
-    dotX = mouseX;
-    dotY = mouseY;
-    cursorDot.style.left = dotX + 'px';
-    cursorDot.style.top = dotY + 'px';
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    cursorHorizontal.style.left = e.clientX + 'px';
+    cursorHorizontal.style.top = e.clientY + 'px';
 });
 
-// Smooth cursor follow with delay
-function animateCursor() {
-    const delay = 0.1;
-    
-    cursorX += (mouseX - cursorX) * delay;
-    cursorY += (mouseY - cursorY) * delay;
-    
-    cursor.style.left = cursorX + 'px';
-    cursor.style.top = cursorY + 'px';
-    
-    requestAnimationFrame(animateCursor);
-}
-
-animateCursor();
-
 // Hover effect on interactive elements
-const hoverElements = document.querySelectorAll('a, button, .btn, .glass-card, .skill-card, .achievement-card, .publication-card, .contact-link, .language-item, .goal-item, .timeline-item');
+const hoverElements = document.querySelectorAll('a, button, .btn, .glass-card, .skill-card, .achievement-card, .publication-card, .contact-link, .language-item, .goal-item, .timeline-item, .nav-links a');
 
 hoverElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
         cursor.classList.add('hover');
-        cursorDot.classList.add('hover');
+        cursorHorizontal.classList.add('hover');
     });
     
     el.addEventListener('mouseleave', () => {
         cursor.classList.remove('hover');
-        cursorDot.classList.remove('hover');
+        cursorHorizontal.classList.remove('hover');
     });
 });
     </script>
