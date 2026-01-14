@@ -312,8 +312,8 @@
         .hero-label {
             display: inline-block;
             padding: 8px 16px;
-            background: var(--hero-label-bg, rgba(0, 0, 0, 0.15));
-            border: 1px solid var(--hero-label-border, rgba(0, 0, 0, 0.2));
+            background: var(--hero-label-bg, rgba(0, 0, 0, 0.05));
+            border: 1px solid var(--hero-label-border, rgba(0, 0, 0, 0.15));
             border-radius: 6px;
             color: var(--text-primary);
             font-size: 0.85em;
