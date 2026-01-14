@@ -570,6 +570,13 @@
             padding: 40px;
             border: 1px solid var(--border-color);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        
+        .glass-card.animate-in {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .glass-card:hover {
@@ -592,12 +599,20 @@
             border-radius: 12px;
             padding: 32px;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+        }
+        
+        .skill-card.animate-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         .skill-card:hover {
             border-color: var(--border-hover);
             transform: translateY(-8px) scale(1.02);
             background: var(--glass-hover);
+            box-shadow: 0 20px 50px var(--shadow-color);
         }
 
         .skill-card h3 {
@@ -646,6 +661,13 @@
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px) rotateX(10deg);
+        }
+        
+        .achievement-card.animate-in {
+            opacity: 1;
+            transform: translateY(0) rotateX(0deg);
         }
 
         .achievement-card::before {
@@ -667,8 +689,9 @@
 
         .achievement-card:hover {
             border-color: var(--border-hover);
-            transform: translateY(-8px);
+            transform: translateY(-8px) scale(1.03);
             background: var(--glass-hover);
+            box-shadow: 0 25px 60px var(--shadow-color);
         }
 
         .achievement-rank {
@@ -715,6 +738,13 @@
         .timeline-item {
             position: relative;
             margin-bottom: 50px;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        
+        .timeline-item.animate-in {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .timeline-item::before {
@@ -816,6 +846,13 @@
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+        
+        .goal-item.animate-in {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .goal-item::before {
@@ -837,7 +874,7 @@
 
         .goal-item:hover {
             border-color: var(--border-hover);
-            transform: translateY(-6px);
+            transform: translateX(10px);
             background: var(--glass-hover);
             box-shadow: 0 20px 50px var(--shadow-color);
         }
@@ -856,12 +893,20 @@
             padding: 20px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+        }
+        
+        .language-item.animate-in {
+            opacity: 1;
+            transform: scale(1) translateY(0);
         }
 
         .language-item:hover {
             border-color: var(--border-hover);
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-5px) scale(1.08);
             background: var(--glass-hover);
+            box-shadow: 0 15px 40px var(--shadow-color);
         }
 
         .language-name {
@@ -897,13 +942,20 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .contact-link.animate-in {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .contact-link:hover {
             border-color: var(--border-hover);
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.03);
             background: var(--glass-hover);
-            box-shadow: 0 15px 40px var(--shadow-color);
+            box-shadow: 0 20px 50px var(--shadow-color);
         }
 
         .contact-label {
@@ -938,10 +990,17 @@
         .stat-item {
             text-align: center;
             transition: transform 0.3s ease;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        
+        .stat-item.animate-in {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .stat-item:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
         .stat-value {
@@ -991,12 +1050,19 @@
             flex-direction: column;
             gap: 12px;
             min-height: 160px;
+            opacity: 0;
+            transform: translateY(40px) scale(0.96);
+        }
+        
+        .publication-card.animate-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         .publication-card:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-12px) scale(1.03);
             border-color: var(--border-hover);
-            box-shadow: 0 20px 60px var(--shadow-color);
+            box-shadow: 0 25px 70px var(--shadow-color);
             background: var(--glass-hover);
         }
 
@@ -1074,16 +1140,36 @@
             background: transparent;
             color: var(--text-brand);
             border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pub-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .pub-link:hover::before {
+            width: 200px;
+            height: 200px;
         }
 
         .pub-link:hover {
-            background: var(--bg-secondary);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             border-color: var(--border-hover);
+            box-shadow: 0 8px 20px var(--shadow-color);
         }
-
+        
         footer {
             position: relative;
             z-index: 1;
@@ -1584,11 +1670,13 @@
 </style>
 
 <body>
+    <!-- Added scroll progress indicator -->
     <div class="scroll-progress"></div>
 
     <div class="bg-grid"></div>
     <div class="bg-gradient"></div>
 
+    <!-- Removed fixed theme toggle button from here - moved to navbar -->
     
     <nav>
         <div class="nav-container">
@@ -1598,6 +1686,7 @@
                 <span></span>
                 <span></span>
             </button>
+            <!-- Added nav-right container with theme toggle -->
             <div class="nav-right">
                 <div class="nav-links" id="navLinks">
                     <a href="#about">About</a>
@@ -1705,6 +1794,7 @@
                 </div>
             </div>
         </section>
+
         <section id="achievements">
             <div class="section-header">
                 <div class="section-label">Recognition</div>
@@ -2036,6 +2126,59 @@
 
         document.querySelectorAll('section').forEach(section => {
             observer.observe(section);
+        });
+        
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animate-in');
+                    }, entry.target.dataset.delay || 0);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.skill-card').forEach((card, index) => {
+            card.dataset.delay = index * 100;
+            cardObserver.observe(card);
+        });
+        
+        document.querySelectorAll('.achievement-card').forEach((card, index) => {
+            card.dataset.delay = index * 80;
+            cardObserver.observe(card);
+        });
+        
+        document.querySelectorAll('.publication-card').forEach((card, index) => {
+            card.dataset.delay = index * 60;
+            cardObserver.observe(card);
+        });
+        
+        document.querySelectorAll('.goal-item').forEach((card, index) => {
+            card.dataset.delay = index * 150;
+            cardObserver.observe(card);
+        });
+        
+        document.querySelectorAll('.language-item').forEach((card, index) => {
+            card.dataset.delay = index * 100;
+            cardObserver.observe(card);
+        });
+        
+        document.querySelectorAll('.contact-link').forEach((card, index) => {
+            card.dataset.delay = index * 80;
+            cardObserver.observe(card);
+        });
+        
+        document.querySelectorAll('.stat-item').forEach((card, index) => {
+            card.dataset.delay = index * 100;
+            cardObserver.observe(card);
+        });
+        
+        document.querySelectorAll('.timeline-item').forEach((card, index) => {
+            card.dataset.delay = index * 120;
+            cardObserver.observe(card);
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
