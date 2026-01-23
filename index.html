@@ -150,7 +150,7 @@
     }
 
     #custom-context-menu {
-        position: fixed;
+        position: fixed; 
         display: none;
         background: var(--glass-bg);
         backdrop-filter: blur(10px);
@@ -158,12 +158,15 @@
         border-radius: 8px;
         box-shadow: 0 8px 32px var(--shadow-color);
         z-index: 10000;
+        user-select: none;
         min-width: 180px;
         animation: slideIn 0.15s ease-out;
+        pointer-events: none; 
     }
 
     #custom-context-menu.show {
         display: block;
+        pointer-events: auto; 
     }
 
     @keyframes slideIn {
@@ -2534,46 +2537,60 @@
                 setTimeout(() => toast.remove(), 300);
             }, 2500);
         }
+        // 1. IMPROVED CONTEXT MENU TRIGGER
+// 1. THE TRIGGER (Fixed for scroll and edge clipping)
+document.addEventListener('contextmenu', (e) => {
+    if (e.ctrlKey) return; 
+    e.preventDefault();
 
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
+    // Refresh disabled states
+    document.querySelectorAll('.context-menu-item').forEach(item => {
+        const action = item.getAttribute('data-action');
+        const itemConfig = menuItems[action];
+        item.classList.toggle('disabled', itemConfig && !itemConfig.condition());
+    });
 
-            document.querySelectorAll('.context-menu-item').forEach(item => {
-                const action = item.getAttribute('data-action');
-                const itemConfig = menuItems[action];
+    contextMenu.classList.add('show');
 
-                if (itemConfig && !itemConfig.condition()) {
-                    item.classList.add('disabled');
-                } else {
-                    item.classList.remove('disabled');
-                }
-            });
+    let posX = e.clientX;
+    let posY = e.clientY;
 
-            contextMenu.style.left = e.pageX + 'px';
-            contextMenu.style.top = e.pageY + 'px';
-            contextMenu.classList.add('show');
-        });
+    const menuWidth = contextMenu.offsetWidth;
+    const menuHeight = contextMenu.offsetHeight;
 
-        document.addEventListener('click', () => {
-            contextMenu.classList.remove('show');
-        });
+    if (posX + menuWidth > window.innerWidth) posX -= menuWidth;
+    if (posY + menuHeight > window.innerHeight) posY -= menuHeight;
 
-        document.querySelectorAll('.context-menu-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const action = item.getAttribute('data-action');
-                if (menuItems[action] && !item.classList.contains('disabled')) {
-                    menuItems[action].action();
-                    contextMenu.classList.remove('show');
-                }
-            });
-        });
+    contextMenu.style.left = `${posX}px`;
+    contextMenu.style.top = `${posY}px`;
+});
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                contextMenu.classList.remove('show');
-            }
-        });
+// 2. THE UNIFIED CLICK HANDLER (Fixes the "Buttons not working" issue)
+document.addEventListener('mousedown', (e) => {
+    // Check if we clicked a menu item
+    const menuItem = e.target.closest('.context-menu-item');
+    
+    if (menuItem && !menuItem.classList.contains('disabled')) {
+        // If it's a valid menu item, run the action
+        const action = menuItem.getAttribute('data-action');
+        if (menuItems[action]) {
+            menuItems[action].action();
+        }
+        // Then close the menu
+        contextMenu.classList.remove('show');
+    } 
+    // If we clicked anywhere else (outside), just close the menu
+    else if (!contextMenu.contains(e.target)) {
+        contextMenu.classList.remove('show');
+    }
+});
+
+// 3. KEYBOARD & WINDOW EVENTS
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') contextMenu.classList.remove('show');
+});
+
+window.addEventListener('scroll', () => contextMenu.classList.remove('show'), { passive: true });
     </script>
 </body>
 </html>
