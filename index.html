@@ -420,63 +420,116 @@
         transform: rotate(-45deg) translate(7px, -7px);
     }
 
-    .theme-toggle {
+
+        .theme-toggle {
         position: relative;
         top: auto;
         right: auto;
+
         width: 40px;
         height: 40px;
+
         background: var(--glass-bg);
         backdrop-filter: blur(20px);
         border: 1px solid var(--border-color);
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 12px var(--shadow-color);
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        z-index: 1001;
-    }
 
-    .theme-toggle:hover {
-        transform: scale(1.1) rotate(180deg);
+        border-radius: 12px;  
+        
+        cursor: pointer;
+
+        display: grid;
+        place-items: center;
+
+        box-shadow: 0 4px 12px var(--shadow-color);
+        overflow: hidden;
+
+        transition:
+            transform 180ms ease,
+            box-shadow 180ms ease,
+            background 220ms ease,
+            border-color 220ms ease;
+
+        z-index: 1001;
+        }
+
+        .theme-toggle:hover {
+        transform: translateY(-1px);
         border-color: var(--border-hover);
         background: var(--glass-hover);
-        box-shadow: 0 8px 20px var(--shadow-color);
-    }
+        box-shadow: 0 10px 24px var(--shadow-color);
+        }
 
-    .theme-toggle:active {
-        transform: scale(0.95) rotate(180deg);
-    }
+        .theme-toggle:active {
+        transform: translateY(0) scale(0.98);
+        box-shadow: 0 6px 16px var(--shadow-color);
+        }
 
-    .theme-toggle svg {
-        width: 20px;
-        height: 20px;
-        stroke: var(--text-brand);
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        /* keyboard accessibility */
+        .theme-toggle:focus-visible {
+        outline: none;
+        border-color: var(--border-hover);
+        box-shadow:
+            0 0 0 3px rgba(167, 139, 250, 0.28),
+            0 10px 24px var(--shadow-color);
+        }
+
+        /* Sweep highlight */
+        .theme-toggle::before {
+        content: "";
         position: absolute;
-    }
+        inset: -60%;
+        background: linear-gradient(
+            120deg,
+            transparent 42%,
+            rgba(255, 255, 255, 0.22),
+            transparent 58%
+        );
+        transform: translateX(-65%);
+        transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
+        }
 
-    .theme-toggle .moon-icon {
+        .theme-toggle:hover::before {
+        transform: translateX(65%);
+        }
+
+        /* Icons: clean fade/scale (no rotation) */
+        .theme-toggle svg {
+        width: 18px;
+        height: 18px;
+        stroke: var(--text-brand);
+        position: absolute;
+        transition: opacity 180ms ease, transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+        }
+
+        .theme-toggle .moon-icon {
         opacity: 1;
-        transform: rotate(0deg) scale(1);
-    }
+        transform: translateY(0) scale(1);
+        }
 
-    .theme-toggle .sun-icon {
+        .theme-toggle .sun-icon {
         opacity: 0;
-        transform: rotate(-180deg) scale(0);
-    }
+        transform: translateY(3px) scale(0.88);
+        }
 
-    [data-theme="dark"] .theme-toggle .sun-icon {
+        [data-theme="dark"] .theme-toggle .sun-icon {
         opacity: 1;
-        transform: rotate(0deg) scale(1);
-    }
+        transform: translateY(0) scale(1);
+        }
 
-    [data-theme="dark"] .theme-toggle .moon-icon {
+        [data-theme="dark"] .theme-toggle .moon-icon {
         opacity: 0;
-        transform: rotate(180deg) scale(0);
-    }
+        transform: translateY(-3px) scale(0.88);
+        }
+
+        /* Respect reduced-motion users */
+        @media (prefers-reduced-motion: reduce) {
+        .theme-toggle,
+        .theme-toggle::before,
+        .theme-toggle svg {
+            transition: none !important;
+        }
+        }
 
     .container {
         position: relative;
@@ -1868,6 +1921,8 @@
         </div>
     </nav>
 
+
+
     <div class="container">
         <div class="hero">
             <div class="hero-label">Aspiring Penetration Tester</div>
@@ -2239,13 +2294,20 @@
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
 
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        html.setAttribute('data-theme', currentTheme);
+        function setTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+
+        // a11y polish
+        themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+        themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        }
+
+        setTheme(localStorage.getItem('theme') || 'light');
 
         themeToggle.addEventListener('click', () => {
-            const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        setTheme(next);
         });
 
         const menuToggle = document.getElementById('menuToggle');
@@ -2585,9 +2647,9 @@ document.addEventListener('keydown', (e) => {
 
 window.addEventListener('scroll', () => contextMenu.classList.remove('show'), { passive: true });
     </script>
-    <script>
-        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+        <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

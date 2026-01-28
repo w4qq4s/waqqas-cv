@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>:( 404 | Page Not Found</title>
+  <meta name="theme-color" content="#106faa" />
+  <link rel="icon" href="favicon.png" />
+
+  <style>
+    /* --- Segoe UI (Windows-like) --- */
+    @font-face{
+      font-family:"Segoe UI";
+      src:
+        local("Segoe UI Light"),
+        url(https://c.s-microsoft.com/static/fonts/segoe-ui/west-european/light/latest.woff2) format("woff2"),
+        url(https://c.s-microsoft.com/static/fonts/segoe-ui/west-european/light/latest.woff) format("woff"),
+        url(https://c.s-microsoft.com/static/fonts/segoe-ui/west-european/light/latest.ttf) format("truetype");
+      font-weight:100; font-style:normal; font-display:swap;
+    }
+    @font-face{
+      font-family:"Segoe UI";
+      src:
+        local("Segoe UI Semilight"),
+        url(https://c.s-microsoft.com/static/fonts/segoe-ui/west-european/semilight/latest.woff2) format("woff2"),
+        url(https://c.s-microsoft.com/static/fonts/segoe-ui/west-european/semilight/latest.woff) format("woff"),
+        url(https://c.s-microsoft.com/static/fonts/segoe-ui/west-european/semilight/latest.ttf) format("truetype");
+      font-weight:200; font-style:normal; font-display:swap;
+    }
+    @font-face{
+      font-family:"Segoe UI";
+      src:
+        local("Segoe UI"),
+        url(https://c.s-microsoft.com/static/fonts/segoe-ui/west-european/normal/latest.woff2) format("woff2"),
+        url(https://c.s-microsoft.com/static/fonts/segoe-ui/west-european/normal/latest.woff) format("woff"),
+        url(https://c.s-microsoft.com/static/fonts/segoe-ui/west-european/normal/latest.ttf) format("truetype");
+      font-weight:400; font-style:normal; font-display:swap;
+    }
+
+    :root{
+      --bsod:#106faa;
+      --txt:#fff;
+      --soft:rgba(255,255,255,.92);
+      --dim:rgba(255,255,255,.86);
+
+      /* Old Windows-ish button palette */
+      --btn-bg:#dcdcdc;
+      --btn-txt:#000;
+      --btn-hi:#ffffff;   /* highlight */
+      --btn-mid:#b5b5b5;  /* mid border */
+      --btn-lo:#6b6b6b;   /* shadow */
+    }
+
+    *{ box-sizing:border-box; }
+
+    /* ✅ Fix: allow page to fit any laptop height + allow vertical scroll if needed */
+    html, body{
+      height:100%;
+      margin:0;
+      background:var(--bsod);
+      color:var(--txt);
+      font-family:"Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      overflow-x:hidden;
+      overflow-y:auto; /* was hidden — that clipped content */
+    }
+
+    /* ✅ Fix: layout uses min-height + responsive padding instead of hard margins */
+    main{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding: clamp(18px, 5vh, 60px) clamp(18px, 6vw, 70px);
+      max-width: 1100px;
+    }
+
+    header{ margin-bottom: 12px; }
+
+    .emotion{
+      font-family:"Segoe UI", system-ui, sans-serif;
+      font-size: clamp(4.5rem, 9vw, 7.5rem);
+      font-weight:200;
+      line-height:1;
+      margin:0;
+      letter-spacing:-2px;
+      user-select:none;
+    }
+
+    .description{
+      font-size: clamp(1.02rem, 2vw, 1.35rem);
+      font-weight:300;
+      line-height:1.55;
+      color:var(--soft);
+      margin:0 0 18px 0;
+    }
+
+    .muted{ opacity:.9; }
+    .mono{
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size:.95em;
+      opacity:.98;
+      word-break:break-word;
+    }
+
+    .small{
+      font-size: .98em;
+      color: var(--dim);
+      margin-top: 10px;
+    }
+
+    /* Old Windows button styling */
+    .actions{
+      margin-top: 12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:120px;
+      padding:6px 12px;
+      color:var(--btn-txt);
+      background:var(--btn-bg);
+      text-decoration:none;
+      font-size:14px;
+      font-weight:400;
+
+      border:1px solid var(--btn-mid);
+      border-top-color:var(--btn-hi);
+      border-left-color:var(--btn-hi);
+      border-right-color:var(--btn-lo);
+      border-bottom-color:var(--btn-lo);
+
+      box-shadow:
+        inset 0 0 0 1px rgba(0,0,0,.08),
+        1px 1px 0 0 rgba(0,0,0,.12);
+
+      user-select:none;
+      cursor:pointer;
+    }
+
+    .btn:active{
+      border-top-color:var(--btn-lo);
+      border-left-color:var(--btn-lo);
+      border-right-color:var(--btn-hi);
+      border-bottom-color:var(--btn-hi);
+      box-shadow: inset 1px 1px 0 0 rgba(0,0,0,.18);
+      transform:translate(1px, 1px);
+    }
+
+    .btn:focus-visible{
+      outline:1px dotted #000;
+      outline-offset:-4px;
+    }
+
+    .kbd{
+      display:inline-block;
+      padding:1px 6px;
+      border:1px solid rgba(255,255,255,.6);
+      border-bottom-width:2px;
+      border-radius:3px;
+      font-size:.85em;
+      margin:0 3px;
+      opacity:.95;
+    }
+
+    /* ✅ Fix: use grid instead of table and let it wrap */
+    .info-row{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: 142px 1fr;
+      gap: 14px;
+      align-items:start;
+      max-width: 950px;
+    }
+
+    .qr{
+      padding:16px;
+      background:#fff;
+      width:110px;
+      height:110px;
+      object-fit:contain;
+      display:block;
+    }
+
+    .side{
+      color: var(--dim);
+      font-weight:300;
+      line-height:1.55;
+      font-size: 0.95rem;
+    }
+
+    .side a{
+      color:#fff;
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.55);
+    }
+    .side a:hover{ border-bottom-color:rgba(255,255,255,.9); }
+
+    .progressline{
+      margin-top: 8px;
+      color: var(--dim);
+      font-size: 1em;
+    }
+    .progressline strong{ color:#fff; }
+
+    @media (max-width: 720px){
+      .info-row{ grid-template-columns: 1fr; }
+      .qr{ width: 105px; height: 105px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ transition:none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <h1 class="emotion">:(</h1>
+    </header>
+
+    <div class="description">
+      Your browser ran into a problem and couldn’t find that page.
+      <span class="muted">(Yes, it’s embarrassing.)</span><br>
+      We’re collecting some <em>very important</em> data about this mistake and will redirect you somewhere safe.
+
+      <div class="small">
+        Stop code: <strong>PAGE_NOT_FOUND</strong><br>
+        HTTP code: <strong>404</strong><br>
+        Requested path: <strong class="mono" id="reqPath">/</strong>
+      </div>
+
+      <div class="progressline">
+        <p><strong><span id="progress">0</span>%</strong> complete</p>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="/" id="homeBtn">OK</a>
+        <a class="btn" href="#" id="backBtn">Cancel</a>
+        <a class="btn" href="#" id="copyBtn">Copy URL</a>
+      </div>
+
+      <div class="small">
+        Pro tip: press <span class="kbd">Ctrl</span>+<span class="kbd">L</span> and pretend this never happened.
+      </div>
+    </div>
+
+    <div class="info-row">
+      <div>
+        <!-- Put your own QR png here -->
+        <img class="qr" src="qr.png" alt="QR code">
+      </div>
+
+      <div class="side">
+        <p>
+          <small>
+            If this was a broken link, report it like a responsible adult:<br>
+            <a href="mailto:waqqass3c@gmail.com">waqqass3c@gmail.com</a>
+          </small>
+        </p>
+        <p>
+          <small>
+            Or return to the homepage:
+            <span><a href="/" class="mono">/</a></span>
+          </small>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Show requested path
+    const path = window.location.pathname || '/';
+    document.getElementById('reqPath').textContent = path;
+
+    // Buttons
+    document.getElementById('backBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      if (history.length > 1) history.back();
+      else window.location.href = '/';
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      const url = window.location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        const el = e.currentTarget;
+        const old = el.textContent;
+        el.textContent = 'Copied';
+        setTimeout(() => (el.textContent = old), 900);
+      } catch {
+        prompt('Copy this URL:', url);
+      }
+    });
+
+    // Fake "collecting info" progress → redirect to /
+    const progressEl = document.getElementById('progress');
+    let progress = 0;
+
+    function nextDelay(p){
+      if (p < 20) return 80 + Math.random()*120;
+      if (p < 60) return 45 + Math.random()*90;
+      if (p < 90) return 60 + Math.random()*120;
+      return 90 + Math.random()*180;
+    }
+
+    function tick(){
+      let inc = 1;
+      if (progress < 30) inc = 1 + Math.floor(Math.random()*3);
+      else if (progress < 85) inc = 1 + Math.floor(Math.random()*2);
+      else inc = 1;
+
+      progress = Math.min(100, progress + inc);
+      progressEl.textContent = String(progress);
+
+      if (progress >= 100) {
+        setTimeout(() => window.location.href = '/', 350);
+        return;
+      }
+
+      setTimeout(tick, nextDelay(progress));
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(tick, 250);
+    });
+  </script>
+</body>
+</html>
